@@ -30,8 +30,11 @@ div.userLinks {
 
 }
 
-div.userLinks img {
-    width: 5vw;
+div.userLinks div.fotito {
+    width: 10vh;
+    height: 10vh;
+    background-size: cover;
+    background-position: center;
 }
 
 .links {

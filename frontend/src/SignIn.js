@@ -1,7 +1,9 @@
 import { useState } from "react"
 import axios from 'axios'
+import { connect } from "react-redux"
+import authActions from "./authActions"
 
-const SignIn = () => {
+const SignIn = (props) => {
     const [usuarioEntrante, setUsuarioEntrante] = useState({mail: '', clave: ''})
 
     const leerInput = e => {
@@ -15,8 +17,7 @@ const SignIn = () => {
 
     const enviar = async e => {
         e.preventDefault()
-        const respuesta = await axios.post('http://localhost:4000/api/user/signIn', usuarioEntrante)
-        console.log(respuesta)
+        props.loguearUsuario(usuarioEntrante)
     }
     return (
         <div className="contenedor formulario">
@@ -24,7 +25,7 @@ const SignIn = () => {
             <form>
                 <input type="text" placeholder="Ingresa tu mail" name="mail" value={usuarioEntrante.mail} 
                 onChange={leerInput} />
-                <input type="text" placeholder="Ingresa tu clave" name="clave" value={usuarioEntrante.clave} 
+                <input type="password" placeholder="Ingresa tu clave" name="clave" value={usuarioEntrante.clave} 
                 onChange={leerInput} />
                 <button onClick={enviar} >Enviar</button>
             </form>
@@ -33,4 +34,8 @@ const SignIn = () => {
     )
 }
 
-export default SignIn
+const mapDispatchToProps = {
+    loguearUsuario: authActions.loguearUsuario
+}
+
+export default connect(null, mapDispatchToProps)(SignIn) 
